@@ -12,12 +12,12 @@ const MealPage = async ({ params }: MealPageProps) => {
 
   return (
     <main>
-      <h1 className="text-3xl font-bold text-white text-center my-5">
+      <h1>
         Meal Page
       </h1>
-      <p className="pb-4 text-center text-white text-xl">{mealId} page.</p>
+      <p>{mealId} page.</p>
       <div>
-        <Link className="flex justify-center text-yellow-500" href="/meals">
+        <Link href="/meals">
           Go back
         </Link>
       </div>

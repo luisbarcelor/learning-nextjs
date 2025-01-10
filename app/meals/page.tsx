@@ -1,23 +1,27 @@
 import React from "react";
+import styles from "./page.module.css";
 import Link from "next/link";
+import MealsGrid from "@/components/meals/meals-grid";
 
 const MealsPage = () => {
   return (
-    <main>
-      <h1 className="text-3xl font-bold text-white text-center my-5">
-        Meals Page
-      </h1>
-      <div>
-        <ul className="flex justify-center gap-4 text-yellow-500 pb-4">
-          <li><Link href="/meals/curry-chicken">Curry chicken</Link></li>
-          <li><Link href="/meals/steak">Steak</Link></li>
-          <li><Link href="/meals/carbonara">Carbonara</Link></li>
-        </ul>
-        <Link className="flex justify-center text-yellow-500" href="/">
-          Go back
-        </Link>
-      </div>
-    </main>
+    <>
+      <header className={styles.header}>
+        <h1>
+          Delicious meals, created{" "}
+          <span className={styles.highlight}>by you</span>
+        </h1>
+        <p>
+          Choose your favorite recipe and cook it yourself. It is easy and fun!
+        </p>
+        <p className={styles.cta}>
+          <Link href="/meals/share">Share your favorite recipe</Link>
+        </p>
+      </header>
+      <main className={styles.main}>
+       <MealsGrid meals={[]} /> 
+      </main>
+    </>
   );
 };
 
