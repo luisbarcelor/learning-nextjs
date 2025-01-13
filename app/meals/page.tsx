@@ -2,8 +2,12 @@ import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import MealsGrid from "@/components/meals/meals-grid";
+import MealDTO from "@/lib/dtos/meal-dto";
+import { getMeals } from "@/lib/meals";
 
-const MealsPage = () => {
+const MealsPage = async () => {
+  const meals: MealDTO[] = await getMeals();
+  
   return (
     <>
       <header className={styles.header}>
@@ -19,7 +23,7 @@ const MealsPage = () => {
         </p>
       </header>
       <main className={styles.main}>
-       <MealsGrid meals={[]} /> 
+       <MealsGrid meals={meals} /> 
       </main>
     </>
   );

@@ -15,7 +15,7 @@ interface MealsGridProps {
 
 const MealsGrid = ({ meals }: MealsGridProps) => {
   return (
-    <ul className={styles.mealsGrid}>
+    <ul className={styles.meals}>
       {meals.map((meal) => (
         <li key={meal.id}>
           <MealItem {...meal} />
