@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model meals {
+model Meal {
   id            Int    @id @default(autoincrement())
   slug          String @unique(map: "sqlite_autoindex_meals_1")
   title         String
@@ -16,4 +16,6 @@ model meals {
   instructions  String
   creator       String
   creator_email String
+  
+  @@map("meals")
 }
