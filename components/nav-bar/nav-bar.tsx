@@ -10,7 +10,7 @@ const NavBar = () => {
     <>
       <NavBarBackground />
       <header className={styles.header}>
-        <Link className={styles.logo} href="/public">
+        <Link className={styles.logo} href="/">
           <Image src={logoImg} alt="A plate with food on it" priority />
           NextLevel Food
         </Link>
