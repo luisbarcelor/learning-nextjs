@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { getMeal } from "@/lib/meals";
-import MealDTO from "@/lib/dtos/meal-dto";
+import MealDto from "@/lib/dtos/meal";
 import { notFound } from "next/navigation";
 
 interface MealPageProps {
@@ -13,9 +13,11 @@ interface MealPageProps {
 
 const MealPage = async ({ params }: MealPageProps) => {
   const { mealId } = await params;
-  const meal: MealDTO | null = await getMeal(mealId);
-  
-  if (!meal) notFound();
+  const meal: MealDto | null = await getMeal(mealId);
+
+  if (!meal) {
+    notFound();
+  }
 
   meal.instructions = meal.instructions.replace(/\n/g, "<br/>");
 

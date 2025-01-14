@@ -1,11 +1,17 @@
-import prisma from "@/lib/data/prisma-client"; 
-import { Meal } from "@prisma/client";
+import prisma from "@/lib/data/prisma-client";
+import { Meal as MealEntity } from "@prisma/client";
+import { MealCreateDto, MealResponseDto } from "@/lib/dtos/meal";
+import slugify from "slugify";
+import xss from "xss";
+import { MealFormData } from "@/lib/models";
 
-export const getMeals = async (): Promise<Meal[]> => {
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
+export const getMeals = async (): Promise<MealResponseDto[]> => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   try {
-    return await prisma.meal.findMany();
+    const meal: MealEntity[] = await prisma.meal.findMany();
+    // TODO: Map entities to DTOs as needed
+    return meal;
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("Fetch failed:", error.message);
@@ -14,13 +20,17 @@ export const getMeals = async (): Promise<Meal[]> => {
     }
     return [];
   }
-}
+};
 
-export const getMeal = async (slug: string): Promise<Meal | null> => {
+export const getMeal = async (
+  slug: string,
+): Promise<MealResponseDto | null> => {
   try {
-    return await prisma.meal.findUnique({
-      where: { slug }
+    const meal: MealEntity | null = await prisma.meal.findUnique({
+      where: { slug },
     });
+    // TODO: Map entities to DTOs as needed
+    return meal;
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("Fetch failed:", error.message);
@@ -29,4 +39,12 @@ export const getMeal = async (slug: string): Promise<Meal | null> => {
     }
     return null;
   }
-}
+};
+
+export const saveMeal = async (
+  meal: MealFormData,
+): Promise<MealResponseDto | null> => {
+  const slug= slugify(meal.title, { lower: true });
+  const sanitized = meal.instructions = xss(meal.instructions);
+  return null;
+};

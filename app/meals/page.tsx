@@ -2,12 +2,12 @@ import React, { Suspense } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import MealsGrid from "@/components/meals/meals-grid";
-import MealDTO from "@/lib/dtos/meal-dto";
+import MealDto from "@/lib/dtos/meal";
 import { getMeals } from "@/lib/meals";
 import MealsLoadingPage from "@/components/meals/meals-loading";
 
 const Meals = async () => {
-  const meals: MealDTO[] = await getMeals();
+  const meals: MealDto[] = await getMeals();
   return <MealsGrid meals={meals} />;
 };
 
