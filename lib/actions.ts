@@ -6,6 +6,10 @@ import slugify from "slugify";
 import { saveMeal } from "@/lib/services/meal-service";
 import { redirect } from "next/navigation";
 
+const isInvalidText = (text: string) => {
+  return !text || text.trim().length === 0;
+};
+
 export const shareMealAction = async (formData: FormData) => {
   const mealFormData: MealFormData = {
     title: formData.get("title") as string,
@@ -15,6 +19,18 @@ export const shareMealAction = async (formData: FormData) => {
     creator: formData.get("name") as string,
     creatorEmail: formData.get("email") as string,
   };
+
+  if (
+    isInvalidText(mealFormData.title) ||
+    isInvalidText(mealFormData.summary) ||
+    isInvalidText(mealFormData.instructions) ||
+    isInvalidText(mealFormData.creator) ||
+    isInvalidText(mealFormData.creatorEmail) ||
+    !mealFormData.creatorEmail.includes("@") ||
+    !mealFormData.image || mealFormData.image.size === 0
+  ) {
+    throw new Error("Invalid form data");
+  }
 
   const slug = slugify(mealFormData.title, { lower: true });
 
