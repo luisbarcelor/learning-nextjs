@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
-import { getMeal } from "@/lib/meals";
+import { getMeal } from "@/lib/services/meal-service";
 import MealDto from "@/lib/dtos/meal";
 import { notFound } from "next/navigation";
 

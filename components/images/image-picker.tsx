@@ -50,7 +50,7 @@ const ImagePicker = ({ label, name }: ImagePickerProps) => {
           className={styles.input}
           type="file"
           id={name}
-          accept="image/png, image/jpeg"
+          accept="image/jpeg"
           name={name}
           ref={imageInput}
           onChange={handleImageChange}

@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import MealsGrid from "@/components/meals/meals-grid";
 import MealDto from "@/lib/dtos/meal";
-import { getMeals } from "@/lib/meals";
+import { getMeals } from "@/lib/services/meal-service";
 import MealsLoadingPage from "@/components/meals/meals-loading";
 
 const Meals = async () => {

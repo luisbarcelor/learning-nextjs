@@ -12,7 +12,7 @@ export interface MealResponseDto {
 export interface MealCreateDto {
   slug: string;
   title: string;
-  image: string;
+  image: File;
   summary: string;
   instructions: string;
   creator: string;
