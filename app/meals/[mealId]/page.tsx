@@ -2,18 +2,30 @@ import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { getMeal } from "@/lib/services/meal-service";
-import MealDto from "@/lib/dtos/meal";
 import { notFound } from "next/navigation";
+import { validateDynamicMealParams } from "@/lib/validation/meal-validation";
+
+export const generateMetadata = async ({ params }: { params: Promise<unknown> }) => {
+  const mealId = await validateDynamicMealParams(params);
+  const meal = await getMeal(mealId);
+
+  if (!meal) {
+    notFound();
+  }
+  
+  return {
+    title: meal.title,
+    description: meal.summary,
+  }
+}
 
 interface MealPageProps {
-  params: {
-    mealId: string;
-  };
+  params: Promise<unknown>;
 }
 
 const MealPage = async ({ params }: MealPageProps) => {
-  const { mealId } = await params;
-  const meal: MealDto | null = await getMeal(mealId);
+  const mealId = await validateDynamicMealParams(params);
+  const meal = await getMeal(mealId);
 
   if (!meal) {
     notFound();

@@ -2,12 +2,18 @@ import React, { Suspense } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import MealsGrid from "@/components/meals/meals-grid";
-import MealDto from "@/lib/dtos/meal";
+import { MealResponseDto } from "@/lib/dtos/meal";
 import { getMeals } from "@/lib/services/meal-service";
 import MealsLoadingPage from "@/components/meals/meals-loading";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "All Meals",
+  description: "Browse the delicious meals shared by our vibrant community.",
+};
 
 const Meals = async () => {
-  const meals: MealDto[] = await getMeals();
+  const meals: MealResponseDto[] = await getMeals();
   return <MealsGrid meals={meals} />;
 };
 

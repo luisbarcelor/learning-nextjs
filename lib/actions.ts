@@ -5,12 +5,13 @@ import { MealCreateDto } from "@/lib/dtos/meal";
 import slugify from "slugify";
 import { saveMeal } from "@/lib/services/meal-service";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const isInvalidText = (text: string) => {
   return !text || text.trim().length === 0;
 };
 
-export const shareMealAction = async (formData: FormData) => {
+export const shareMealAction = async (prevState: { message: string }, formData: FormData) => {
   const mealFormData: MealFormData = {
     title: formData.get("title") as string,
     summary: formData.get("summary") as string,
@@ -29,7 +30,9 @@ export const shareMealAction = async (formData: FormData) => {
     !mealFormData.creatorEmail.includes("@") ||
     !mealFormData.image || mealFormData.image.size === 0
   ) {
-    throw new Error("Invalid form data");
+    return { 
+      message: "Invalid form data. Please check the fields and try again.",
+    }
   }
 
   const slug = slugify(mealFormData.title, { lower: true });
@@ -46,5 +49,6 @@ export const shareMealAction = async (formData: FormData) => {
 
   const response = await saveMeal(mealCreateDto);
   console.log(response);
+  revalidatePath("/meals");
   redirect("/meals");
 };

@@ -6,7 +6,7 @@ const MealsFormSubmit = () => {
   const { pending } = useFormStatus();
   
   return (
-    <button type="submit" disabled={pending} onClick={() => {}}>
+    <button type="submit" disabled={pending}>
       {pending ? "Submitting..." : "Share Meal"}
     </button>
   );
